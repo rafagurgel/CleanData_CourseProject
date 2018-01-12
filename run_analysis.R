@@ -71,3 +71,4 @@ summary.data <- full.data%>%
     group_by(Activity,Subject)%>%
     summarise_all(funs(mean))
 print(summary.data)
+write.table(summary.data, file = "tidydata.txt", row.name=FALSE)
