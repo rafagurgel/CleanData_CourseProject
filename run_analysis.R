@@ -1,6 +1,9 @@
 library(dplyr)
 library(data.table)
+download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", "UCI HAR Dataset.zip", method = "curl")
+unzip("UCI HAR Dataset.zip")
 fields  <- list(Subjects  = "subject", Activities = "y", Features = "X")
+
 # Loading train set
 str <- "train"
 tmp.data<- lapply(file.path("UCI HAR Dataset",str,paste0(fields,"_",str,".txt")),fread)
@@ -11,6 +14,7 @@ tmp.data<- lapply(file.path("UCI HAR Dataset",str,paste0(fields,"_",str,".txt"))
 test.data <- as_tibble(data.frame(Subjects = tmp.data[[1]], Activities = tmp.data[[2]], Features = tmp.data[[3]]))
 # Removing tmp.data
 rm(list=c("tmp.data","fields","str"))
+
 # Load labels
 features.labels <- fread("UCI HAR Dataset/features.txt", sep=" ", data.table = FALSE)[,2]
 activity.labels <- fread("UCI HAR Dataset/activity_labels.txt", sep=" ", data.table = FALSE)[,2]
